@@ -1,0 +1,100 @@
+package dominio;
+
+/**
+ * Clase abstracta que representa a un usuario del sistema.
+ * Contiene los datos comunes a todo tipo de usuario.
+ */
+public abstract class Usuario {
+	
+	private String dni;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
+	private String telefono;
+	private String email;
+	
+	//constructores
+	
+	/**
+	 * Constructor vacío
+	 */
+	
+	public Usuario() {
+		
+	}
+	
+	/** 
+	 * Constructor con parámetros
+	 * @param dni Dni del usuario.
+	 * @param nombre Nombre del usuario.
+	 * @param apellido1 Apellidos del usuario(apellido1, apellido2).
+	 * @param apellido2
+	 * @param telefono Telefono de contacto
+	 * @param email Dirección de correo electrónico del usuario
+	 */
+	
+	public Usuario(String dni, String nombre, String apellido1, String apellido2, String telefono, String email) {
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.telefono = telefono;
+		this.email = email;
+	}
+
+	//métodos de acceso a atributos.
+	
+	public String getDni() {
+		return dni;
+	}
+	
+	public void setDni(String dni) {
+		this.dni = dni;
+		
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+		
+	}
+	
+	public String getApellido1() {
+		return apellido1;
+	}
+	
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+		
+	}
+	
+	public String getApellido2() {
+		return apellido2;
+	}
+	
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+		
+	}
+	
+	public String getTelefono() {
+		return telefono;
+	}
+	
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+		
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+		
+	}
+}
