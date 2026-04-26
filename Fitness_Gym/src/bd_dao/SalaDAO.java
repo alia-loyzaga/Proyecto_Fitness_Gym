@@ -19,7 +19,7 @@ public class SalaDAO {
 	public void insertarSala(Sala sala) {
 		
 		//defino consulta
-		sentencia = "INSERT INTO sala (nombre, metrosCuadrados, aforoMaximo) VALUES (?, ?, ?)";
+		sentencia = "INSERT INTO sala (nombre, metros, aforo) VALUES (?, ?, ?)";
 		
 		//abro conexion
 		ConexionBD conexionBD = new ConexionBD();
@@ -87,9 +87,9 @@ public class SalaDAO {
 	                sala.setId(resultado.getInt("id"));
 	                sala.setNombre(resultado.getString("nombre"));
 	                sala.setMetrosCuadrados(
-	                        resultado.getDouble("metrosCuadrados"));
+	                        resultado.getDouble("metros"));
 	                sala.setAforoMaximo(
-	                        resultado.getInt("aforoMaximo"));
+	                        resultado.getInt("aforo"));
 
 	            }
 
@@ -140,7 +140,7 @@ public class SalaDAO {
 	//modificar los datos de la sala
 	public void actualizarSala(Sala sala) {
 		
-        sentencia = "UPDATE sala SET metrosCuadrados = ?, aforoMaximo = ? WHERE nombre = ?";
+        sentencia = "UPDATE sala SET metros = ?, aforo = ? WHERE nombre = ?";
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
 	    

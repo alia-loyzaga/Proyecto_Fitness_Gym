@@ -98,6 +98,10 @@ public class ActividadProgramada {
 	public void setEntrenador(Entrenador entrenador) {
 		this.entrenador = entrenador;
 	}
+	
+	public ArrayList<Reserva> getListaReservas() {
+	    return listaReservas;
+	}
 
 	/**
      * Devuelve una representación en texto de la actividad programada;
