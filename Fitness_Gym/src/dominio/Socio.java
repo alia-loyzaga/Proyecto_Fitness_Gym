@@ -63,7 +63,7 @@ public class Socio extends Usuario {
 		
 	}
 	
-	//Métodos de acceso a atributos;
+	//Getters y Setters;
 	
 	 	public LocalDate getFechaAlta() {
 			return fechaAlta;

@@ -3,9 +3,9 @@ package gestion;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import bdDAO.ActividadDAO;
-import bdDAO.ActividadProgramadaDAO;
-import bdDAO.MaquinaDAO;
+import bd_dao.ActividadDAO;
+import bd_dao.ActividadProgramadaDAO;
+import bd_dao.MaquinaDAO;
 import dominio.Actividad;
 import dominio.ActividadProgramada;
 import dominio.Entrenador;
@@ -166,14 +166,11 @@ public class GestionActividades {
 
 	    for (ActividadProgramada ap : lista) {
 
-	        if (ap.getSala().getId() == sala.getId()) {
-
-	            if (inicio.compareTo(ap.getFechaHoraFin()) < 0 &&
-	                fin.compareTo(ap.getFechaHoraInicio()) > 0) {
-
-	                solapa = true;
-	            }
-	        }
+	    	if (ap.getSala().getId() == sala.getId() &&
+	    		    inicio.compareTo(ap.getFechaHoraFin()) < 0 &&
+	    		    fin.compareTo(ap.getFechaHoraInicio()) > 0) {
+	    		    solapa = true;
+	    		}
 	    }
 
 	    return solapa;
@@ -188,14 +185,13 @@ public class GestionActividades {
 
 	    for (ActividadProgramada ap : lista) {
 
-	        if (ap.getEntrenador().getDni().equals(entrenador.getDni())) {
-
-	            if (inicio.compareTo(ap.getFechaHoraFin()) < 0 &&
-	                fin.compareTo(ap.getFechaHoraInicio()) > 0) {
+	        if (ap.getEntrenador().getDni().equals(entrenador.getDni())&&
+	        		inicio.compareTo(ap.getFechaHoraFin()) < 0 &&
+	                fin.compareTo(ap.getFechaHoraInicio())> 0 ) {
 
 	                ocupado = true;
 	            }
-	        }
+	        
 	    }
 
 	    return ocupado;

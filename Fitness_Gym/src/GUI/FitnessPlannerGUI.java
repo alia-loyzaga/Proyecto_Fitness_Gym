@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 
 import json.Json;
@@ -33,7 +33,7 @@ public class FitnessPlannerGUI extends JFrame {
 	
 	
 	public FitnessPlannerGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +53,7 @@ public class FitnessPlannerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				List<ActividadProgramada>lista = gestion.obtenerActividadesProgramadas();
-				System.out.println("Número de actividades: " + lista.size());
+			
 				
 				textArea.setText("");
 				
@@ -83,7 +83,7 @@ public class FitnessPlannerGUI extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 
 		        Json json = new Json();
-		        json.generarFicheroSalasActividades();
+		        json.generarFicheros();
 
 		        textArea.append("\nJSON generado correctamente.\n");
 		    }

@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,22 +46,25 @@ public class ActividadProgramadaDAO {
 	    conexionBD.abrirConexion();
 
 	    boolean existe = false;
+	   
 
-	    try {
+	    try (PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)){
 
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	    	
 	        ps.setInt(1, id);
 
-	        ResultSet resultado = ps.executeQuery();
+	        try (ResultSet resultado = ps.executeQuery()){
 
 	        if (resultado.next()) {
 	            existe = true;
 	        }
+	        }
+	       
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al comprobar actividad programada");
+	        System.out.println("Error al comprobar actividad programada");
 	    }
-
+	    
 	    conexionBD.cerrarConexion();
 
 	    return existe;
@@ -82,10 +85,12 @@ public class ActividadProgramadaDAO {
 
 		ConexionBD conexionBD = new ConexionBD();
 		conexionBD.abrirConexion();
+		
+		PreparedStatement ps = null;
 
 		try {
 
-			PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+		    ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 			ps.setTimestamp(1, Timestamp.valueOf(actividadProgramada.getFechaHoraInicio()));
 			ps.setTimestamp(2, Timestamp.valueOf(actividadProgramada.getFechaHoraFin()));
@@ -94,10 +99,20 @@ public class ActividadProgramadaDAO {
 			ps.setString(5, actividadProgramada.getEntrenador().getDni());
 
 			ps.executeUpdate();
+			
+	
 
 		} catch (SQLException e) {
-			System.out.println(" --> Error al insertar actividad programada");
+			System.out.println("Error al insertar actividad programada");
 		}
+		
+		try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException e) {
+        	 // Ignorado: error al cerrar recursos
+        }
 
 		conexionBD.cerrarConexion();
 	}
@@ -114,49 +129,52 @@ public class ActividadProgramadaDAO {
 
 	public ActividadProgramada buscarPorId(int id) {
 
-		sentencia = "SELECT * FROM actividad_programada WHERE id = ?";
+	    sentencia = "SELECT * FROM actividad_programada WHERE id = ?";
 
-		ConexionBD conexionBD = new ConexionBD();
-		conexionBD.abrirConexion();
+	    ConexionBD conexionBD = new ConexionBD();
+	    conexionBD.abrirConexion();
 
-		ActividadProgramada actividadProgramada = null;
+	    ActividadProgramada actividadProgramada = null;
 
-		try {
+	    try (PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)) {
 
-			PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
-			ps.setInt(1, id);
+	        ps.setInt(1, id);
 
-			ResultSet resultado = ps.executeQuery();
+	        try (ResultSet resultado = ps.executeQuery()) {
 
-			if (resultado.next()) {
+	            if (resultado.next()) {
 
-				actividadProgramada = new ActividadProgramada();
+	                actividadProgramada = new ActividadProgramada();
 
-				actividadProgramada.setId(resultado.getInt("id"));
-				actividadProgramada.setFechaHoraInicio(resultado.getTimestamp("fecha_inicio").toLocalDateTime());
-				actividadProgramada.setFechaHoraFin(resultado.getTimestamp("fecha_fin").toLocalDateTime());
+	                actividadProgramada.setId(resultado.getInt("id"));
+	                actividadProgramada.setFechaHoraInicio(
+	                        resultado.getTimestamp("fecha_inicio").toLocalDateTime());
+	                actividadProgramada.setFechaHoraFin(
+	                        resultado.getTimestamp("fecha_fin").toLocalDateTime());
 
-				Actividad actividad = new Actividad();
-				actividad.setId(resultado.getInt("actividad_id"));
+	                Actividad actividad = new Actividad();
+	                actividad.setId(resultado.getInt("actividad_id"));
 
-				Sala sala = new Sala();
-				sala.setId(resultado.getInt("sala_id"));
+	                Sala sala = new Sala();
+	                sala.setId(resultado.getInt("sala_id"));
 
-				actividadProgramada.setActividad(actividad);
-				actividadProgramada.setSala(sala);
-				
-				Entrenador entrenador = new Entrenador();
-				entrenador.setDni(resultado.getString("dni_entrenador"));
-				actividadProgramada.setEntrenador(entrenador);
-			}
+	                actividadProgramada.setActividad(actividad);
+	                actividadProgramada.setSala(sala);
 
-		} catch (SQLException e) {
-			System.out.println(" --> Error al buscar actividad programada");
-		}
+	                Entrenador entrenador = new Entrenador();
+	                entrenador.setDni(resultado.getString("dni_entrenador"));
 
-		conexionBD.cerrarConexion();
+	                actividadProgramada.setEntrenador(entrenador);
+	            }
+	        }
 
-		return actividadProgramada;
+	    } catch (SQLException e) {
+	        System.out.println("Error al buscar actividad programada");
+	    }
+
+	    conexionBD.cerrarConexion();
+
+	    return actividadProgramada;
 	}
 	
 	/**
@@ -175,9 +193,11 @@ public class ActividadProgramadaDAO {
 		ConexionBD conexionBD = new ConexionBD();
 		conexionBD.abrirConexion();
 
+		PreparedStatement ps = null;
+		
 		try {
 
-			PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+			ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 			ps.setTimestamp(1, Timestamp.valueOf(actividadProgramada.getFechaHoraInicio()));
 			ps.setTimestamp(2, Timestamp.valueOf(actividadProgramada.getFechaHoraFin()));
@@ -186,10 +206,19 @@ public class ActividadProgramadaDAO {
 			ps.setInt(5, actividadProgramada.getId());
 
 			ps.executeUpdate();
+		
 
 		} catch (SQLException e) {
-			System.out.println(" --> Error al actualizar actividad programada");
+			System.out.println("Error al actualizar actividad programada");
 		}
+		
+		try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException e) {
+        	 // Ignorado: error al cerrar recursos
+        }
 
 		conexionBD.cerrarConexion();
 	}
@@ -206,24 +235,36 @@ public class ActividadProgramadaDAO {
 
 		ConexionBD conexionBD = new ConexionBD();
 		conexionBD.abrirConexion();
+		
+		PreparedStatement ps  = null;
 
 		try {
 
-			PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+		    ps = conexionBD.getConexion().prepareStatement(sentencia);
 			ps.setInt(1, id);
 
 			ps.executeUpdate();
+			
+			
 
 		} catch (SQLException e) {
-			System.out.println(" --> Error al eliminar actividad programada");
+			System.out.println("Error al eliminar actividad programada");
 		}
+		
+		try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException e) {
+        	 // Ignorado: error al cerrar recursos
+        }
 
 		conexionBD.cerrarConexion();
 	}
 	
 	public List<ActividadProgramada> obtenerTodas() {
-	    
-		List<ActividadProgramada> lista = new ArrayList<>();
+
+	    List<ActividadProgramada> lista = new ArrayList<>();
 
 	    sentencia =
 	        "SELECT ap.id, ap.fecha_inicio, ap.fecha_fin, ap.dni_entrenador, " +
@@ -236,19 +277,19 @@ public class ActividadProgramadaDAO {
 	    ConexionBD conexion = new ConexionBD();
 	    conexion.abrirConexion();
 
-	    try {
-	        PreparedStatement ps = conexion.getConexion().prepareStatement(sentencia);
-	        ResultSet rs = ps.executeQuery();
+	    try (PreparedStatement ps = conexion.getConexion().prepareStatement(sentencia);
+	         ResultSet rs = ps.executeQuery()) {
 
 	        while (rs.next()) {
 
 	            ActividadProgramada ap = new ActividadProgramada();
 
 	            ap.setId(rs.getInt("id"));
-	            ap.setFechaHoraInicio(rs.getTimestamp("fecha_inicio").toLocalDateTime());
-	            ap.setFechaHoraFin(rs.getTimestamp("fecha_fin").toLocalDateTime());
+	            ap.setFechaHoraInicio(
+	                    rs.getTimestamp("fecha_inicio").toLocalDateTime());
+	            ap.setFechaHoraFin(
+	                    rs.getTimestamp("fecha_fin").toLocalDateTime());
 
-	           
 	            Actividad actividad = new Actividad();
 	            actividad.setNombre(rs.getString("nombre_actividad"));
 
@@ -257,25 +298,23 @@ public class ActividadProgramadaDAO {
 
 	            ap.setActividad(actividad);
 	            ap.setSala(sala);
-	            
+
 	            Entrenador entrenador = new Entrenador();
-				entrenador.setDni(rs.getString("dni_entrenador"));
-				ap.setEntrenador(entrenador);
+	            entrenador.setDni(rs.getString("dni_entrenador"));
+
+	            ap.setEntrenador(entrenador);
 
 	            lista.add(ap);
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error al obtener actividades.");;
-		}
-	    
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al obtener actividades.");
+	    }
+
 	    conexion.cerrarConexion();
-	    
+
 	    return lista;
 	}
-	
 	
 }

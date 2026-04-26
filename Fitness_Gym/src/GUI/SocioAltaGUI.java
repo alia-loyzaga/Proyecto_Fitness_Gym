@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import gestion.UsuarioGestion;
 
@@ -59,7 +59,7 @@ public class SocioAltaGUI extends JFrame {
 		 socioGestion = new UsuarioGestion();
 
 		// Configuración de JFrame (ventana)
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
 		// Métodos para elementos del JFrame

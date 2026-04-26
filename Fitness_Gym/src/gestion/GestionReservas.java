@@ -1,6 +1,6 @@
 package gestion;
 
-import bdDAO.ReservaDAO;
+import bd_dao.ReservaDAO;
 import dominio.ActividadProgramada;
 import dominio.Reserva;
 import dominio.Socio;

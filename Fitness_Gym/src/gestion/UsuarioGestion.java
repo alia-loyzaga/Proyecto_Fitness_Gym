@@ -1,9 +1,9 @@
 package gestion;
 
-import bdDAO.AdministradorDAO;
-import bdDAO.EntrenadorDAO;
-import bdDAO.RecepcionistaDAO;
-import bdDAO.SocioDAO;
+import bd_dao.AdministradorDAO;
+import bd_dao.EntrenadorDAO;
+import bd_dao.RecepcionistaDAO;
+import bd_dao.SocioDAO;
 import dominio.Administrador;
 import dominio.Entrenador;
 import dominio.Recepcionista;

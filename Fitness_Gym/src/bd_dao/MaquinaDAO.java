@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 
 import java.sql.Date;
@@ -25,8 +25,10 @@ public class MaquinaDAO {
       		ConexionBD conexionBD = new ConexionBD();
       		conexionBD.abrirConexion();
       		
+      		 PreparedStatement ps = null;
+      		
         try {
-            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+            ps = conexionBD.getConexion().prepareStatement(sentencia);
 
             ps.setString(1, m.getEstado().name()); // ENUM a String
             ps.setDate(2, Date.valueOf(m.getFechaCompra()));
@@ -38,19 +40,31 @@ public class MaquinaDAO {
 
 
             int filas = ps.executeUpdate();
+            
 
             if (filas > 0) {
                 insertado = true;
             }
+            
+           
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
+        try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
+		}
+
+        
       //cierro conexion
-    	if (conexionBD != null) {
+    
     	    conexionBD.cerrarConexion();
-    	}
+    	
 
         return insertado;
         
@@ -59,58 +73,58 @@ public class MaquinaDAO {
 
     // OBTENER MÁQUINAS POR SALA
     public List<Maquina> obtenerMaquinasPorSala(int salaId) {
+
         List<Maquina> lista = new ArrayList<>();
-        
 
-        String sentencia = "SELECT * FROM maquina WHERE sala_id = ?";
-        
-      //abro conexion
-  		ConexionBD conexionBD = new ConexionBD();
-  		conexionBD.abrirConexion();
+        String sentencia = "SELECT tipo, marca, numeroSerie, fechaCompra, fechaUltimoMantenimiento, estado, sala_id FROM maquina WHERE sala_id = ?";
 
-        try {
-            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);;
+        ConexionBD conexionBD = new ConexionBD();
+        conexionBD.abrirConexion();
+
+        try (
+            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)
+        ) {
+
             ps.setInt(1, salaId);
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                Maquina maquina = new Maquina();
+                while (rs.next()) {
 
-                maquina.setTipo(rs.getString("tipo"));
-                maquina.setMarca(rs.getString("marca"));
-                maquina.setNumeroSerie(rs.getString("numeroSerie"));
+                    Maquina maquina = new Maquina();
 
-                Date fechaCompra = rs.getDate("fechaCompra");
-                if (fechaCompra != null) {
-                    maquina.setFechaCompra(fechaCompra.toLocalDate());
+                    maquina.setTipo(rs.getString("tipo"));
+                    maquina.setMarca(rs.getString("marca"));
+                    maquina.setNumeroSerie(rs.getString("numeroSerie"));
+
+                    Date fechaCompra = rs.getDate("fechaCompra");
+                    if (fechaCompra != null) {
+                        maquina.setFechaCompra(fechaCompra.toLocalDate());
+                    }
+
+                    Date fechaMant = rs.getDate("fechaUltimoMantenimiento");
+                    if (fechaMant != null) {
+                        maquina.setFechaUltimoMantenimiento(fechaMant.toLocalDate());
+                    }
+
+                    maquina.setEstado(
+                            EstadoMaquina.valueOf(rs.getString("estado")));
+
+                    Sala sala = new Sala();
+                    sala.setId(rs.getInt("sala_id"));
+
+                    maquina.setSala(sala);
+
+                    lista.add(maquina);
                 }
 
-                Date fechaMant = rs.getDate("fechaUltimoMantenimiento");
-                if (fechaMant != null) {
-                    maquina.setFechaUltimoMantenimiento(fechaMant.toLocalDate());
-                }
-
-                // String → ENUM
-                maquina.setEstado(EstadoMaquina.valueOf(rs.getString("estado")));
-
-                // Solo seteamos id de sala (no cargamos objeto completo)
-                Sala sala = new Sala();
-                sala.setId(rs.getInt("sala_id"));
-                maquina.setSala(sala);
-
-                lista.add(maquina);
-            
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-      //cierro conexion
-    	if (conexionBD != null) {
-    	    conexionBD.cerrarConexion();
-    	}
+
+        conexionBD.cerrarConexion();
 
         return lista;
     }
@@ -124,9 +138,11 @@ public class MaquinaDAO {
       //abro conexion
   		ConexionBD conexionBD = new ConexionBD();
   		conexionBD.abrirConexion();
+  		
+  		PreparedStatement ps = null;
 
         try {
-            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);;
+            ps = conexionBD.getConexion().prepareStatement(sentencia);
 
             ps.setString(1, nuevoEstado);
             ps.setString(2, numeroSerie);
@@ -136,15 +152,25 @@ public class MaquinaDAO {
             if (filas > 0) {
                 actualizado = true;
             }
+            
+           
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
+        try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
+		}
+        
       //cierro conexion
-    	if (conexionBD != null) {
+   
     	    conexionBD.cerrarConexion();
-    	}
+    	
 
         return actualizado;
     }

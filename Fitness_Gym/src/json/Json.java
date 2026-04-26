@@ -5,14 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import bdDAO.SalaDAO;
+import bd_dao.SalaDAO;
 import dominio.ActividadProgramada;
 import dominio.Sala;
 import gestion.GestionActividades;
 
 public class Json {
 	
-	public void generarFicheroSalasActividades() {
+	public void generarFicheros() {
 
         SalaDAO salaDAO = new SalaDAO();
         GestionActividades gestionActividades = new GestionActividades();
@@ -20,15 +20,15 @@ public class Json {
         List<Sala> salas = salaDAO.obtenerTodas();
         List<ActividadProgramada> actividadesProgramadas = gestionActividades.obtenerActividadesProgramadas();
 
+        String finLinea = "\",\n";
         File carpeta = new File("json");
 
         if (!carpeta.exists()) {
             carpeta.mkdir();
         }
-
-        try {
-
-            FileWriter fw = new FileWriter("json/salas_actividades.json");
+        
+        
+        try (FileWriter fw = new FileWriter("json/salas_actividades.json")){
 
             fw.write("[\n");
 
@@ -37,7 +37,7 @@ public class Json {
                 Sala sala = salas.get(i);
 
                 fw.write("  {\n");
-                fw.write("    \"sala\": \"" + sala.getNombre() + "\",\n");
+                fw.write("    \"sala\": \"" + sala.getNombre() + finLinea);
                 fw.write("    \"aforo\": " + sala.getAforoMaximo() + ",\n");
                 fw.write("    \"actividades\": [\n");
 
@@ -52,10 +52,10 @@ public class Json {
                         }
 
                         fw.write("      {\n");
-                        fw.write("        \"actividad\": \"" + ap.getActividad().getNombre() + "\",\n");
-                        fw.write("        \"fechaInicio\": \"" + ap.getFechaHoraInicio() + "\",\n");
-                        fw.write("        \"fechaFin\": \"" + ap.getFechaHoraFin() + "\",\n");
-                        fw.write("        \"entrenador\": \"" + ap.getEntrenador().getDni() + "\"\n");
+                        fw.write("        \"actividad\": \"" + ap.getActividad().getNombre() + finLinea);
+                        fw.write("        \"fechaInicio\": \"" + ap.getFechaHoraInicio() + finLinea);
+                        fw.write("        \"fechaFin\": \"" + ap.getFechaHoraFin() + finLinea);
+                        fw.write("        \"entrenador\": \"" + ap.getEntrenador().getDni() + finLinea);
                         fw.write("      ");
 
                         primeraActividad = false;
@@ -74,13 +74,15 @@ public class Json {
 
             fw.write("]");
 
-            fw.close();
+          
 
             System.out.println("JSON generado correctamente.");
 
         } catch (IOException e) {
             System.out.println("Error al generar JSON.");
+            
         }
-    }
+        
+	}
 
 }

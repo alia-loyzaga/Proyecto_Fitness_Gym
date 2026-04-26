@@ -2,7 +2,7 @@ package dominio;
 
 /**
  * Clase abstracta que representa a un usuario del sistema.
- * Contiene los datos comunes a todo tipo de usuario.
+ * Contiene los datos comunes a cada tipo de usuario.
  */
 public abstract class Usuario {
 	
@@ -19,7 +19,7 @@ public abstract class Usuario {
 	 * Constructor vacío
 	 */
 	
-	public Usuario() {
+	protected Usuario() {
 		
 	}
 	
@@ -33,7 +33,7 @@ public abstract class Usuario {
 	 * @param email Dirección de correo electrónico del usuario
 	 */
 	
-	public Usuario(String dni, String nombre, String apellido1, String apellido2, String telefono, String email) {
+	protected Usuario(String dni, String nombre, String apellido1, String apellido2, String telefono, String email) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;

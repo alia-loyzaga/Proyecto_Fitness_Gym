@@ -2,7 +2,7 @@ package inicio;
 
 import java.awt.EventQueue;
 
-import GUI.SocioAltaGUI;
+import gui.SocioAltaGUI;
 
 
 public class Inicio {

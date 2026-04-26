@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,17 +68,28 @@ public class ConexionBD {
      * @param sentencia String con la sentencia a ejecutar en BD
      * @return número de filas afectadas en la BD
      */
-    public int ejecutaUpdate(String sentencia) {
-        int n = 0;
-        Statement st = null;
-        try {
-            st = conexion.createStatement();
-            n = st.executeUpdate(sentencia);
-        } catch (SQLException ex) {
-            System.out.println(ex + "\n  --> Error al ejecutar Update()");
-        }
-        return n;
-    } // Fin ejecutaUpdate
+	public int ejecutaUpdate(String sentencia) {
+		int n = 0;
+		Statement st = null;
+		try {
+			st = conexion.createStatement();
+			n = st.executeUpdate(sentencia);
+
+		} catch (SQLException ex) {
+			System.out.println(ex + "Error al ejecutar Update()");
+		}
+
+		finally {
+			try {
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		
+		return n;
+	} // Fin ejecutaUpdate
     
     
     /**
@@ -93,9 +104,23 @@ public class ConexionBD {
         try {
             st = conexion.createStatement();
             resultado = st.executeQuery(sentencia);
+            
+            st.close();
+            resultado.close();
+            
         } catch (SQLException ex) {
             System.out.println(ex + "\n  --> Error al ejecutar Query()");
         }
+        
+        finally {
+			try {
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+        
         return resultado;
     } // fin ejecutaConsulta
     

@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,10 +23,12 @@ public class SocioDAO {
 		ConexionBD conexionBD = new ConexionBD();
 		conexionBD.abrirConexion();
 		
+		PreparedStatement ps = null;
+		
 		try {
 			
 		//preparo consulta(creo la consulta lista para usar)
-		PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+		 ps = conexionBD.getConexion().prepareStatement(sentencia);
 		
 		//Sustituyo ?
 		ps.setString(1, socio.getDni());
@@ -38,96 +40,96 @@ public class SocioDAO {
 		ps.executeUpdate();
 		
 		
+		
 		} catch (SQLException e) {
-			System.out.println("  --> Error en la Conexión");
-	}
+			System.out.println("Error en la Conexión");
+		}
+		
+		try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
+		}
 		
 	
 	//cierro conexion
-	if (conexionBD != null) {
+	
 	    conexionBD.cerrarConexion();
-	}
+	
 	
 	
 	}
 	
 	//buscar socio en la base de datos (select)
 	public Socio buscarPorDni(String dni) {
-		
-		sentencia = "SELECT * FROM socio WHERE dni = ?";
-		
-		ConexionBD conexionBD = new ConexionBD();
-		conexionBD.abrirConexion();
-		Socio socio = null;
-		
-		try {
-			
-		//creo la consulta y sustituyo ?
-		PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
-		ps.setString(1, dni);
-		
-		//ejecuto SELECT en la base de datos y se devuelve un resultado(una tabla)
-		
-		ResultSet resultado = ps.executeQuery();
-		
-		//me posiciono en la fila y creo el socio
-		if (resultado.next()) {
-			
-		    socio = new Socio();
-			socio.setDni(resultado.getString("dni"));
-			socio.setNombre(resultado.getString("nombre"));
-			socio.setApellido1(resultado.getString("apellido1"));
-			socio.setApellido2(resultado.getString("apellido2"));
-			
-		}
-			
-		}catch(SQLException e) {
-			System.out.println("  --> Error en la Conexión");
+
+	    sentencia = "SELECT * FROM socio WHERE dni = ?";
+
+	    ConexionBD conexionBD = new ConexionBD();
+	    conexionBD.abrirConexion();
+
+	    Socio socio = null;
+
+	    try (
+	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)
+	    ) {
+
+	        ps.setString(1, dni);
+
+	        try (ResultSet resultado = ps.executeQuery()) {
+
+	            if (resultado.next()) {
+
+	                socio = new Socio();
+	                socio.setDni(resultado.getString("dni"));
+	                socio.setNombre(resultado.getString("nombre"));
+	                socio.setApellido1(resultado.getString("apellido1"));
+	                socio.setApellido2(resultado.getString("apellido2"));
+
+	            }
+
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error en la Conexión");
 	    }
-		
-		//cierro conexion
-		if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
-		}
-		
-		//devuelve un socio
-		return socio;
-		
-		
+
+	    conexionBD.cerrarConexion();
+
+	    return socio;
 	}
 	
 	//Comprobar si existe un socio
 	public boolean existeSocio(String dni) {
-		
 
 	    sentencia = "SELECT dni FROM socio WHERE dni = ?";
-	    
+
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
 
-	    //bandera boleana
 	    boolean existe = false;
 
-	    try {
+	    try (
+	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)
+	    ) {
 
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
 	        ps.setString(1, dni);
 
-	        ResultSet resultado = ps.executeQuery();
+	        try (ResultSet resultado = ps.executeQuery()) {
 
-	        //me posiciono en una fila y si existe entonces existe true.
-	        if (resultado.next()) {
-	            existe = true;
+	            if (resultado.next()) {
+	                existe = true;
+	            }
+
 	        }
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al comprobar socio");
+	        System.out.println("Error al comprobar socio");
 	    }
 
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
-		}
-		
+	    conexionBD.cerrarConexion();
 
 	    return existe;
 	}
@@ -138,11 +140,13 @@ public class SocioDAO {
         sentencia = "UPDATE socio SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
+	    
+	    PreparedStatement ps = null;
 
 	    try {
 
 	    	//creo la consulta y sustituyo ?
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	        ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 	        ps.setString(1, socio.getNombre());
 	        ps.setString(2, socio.getApellido1());
@@ -151,14 +155,23 @@ public class SocioDAO {
 
 	        //ejecuto la sentencia
 	        ps.executeUpdate();
+	        
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al actualizar socio");
+	        System.out.println("Error al actualizar socio");
 	    }
-
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
+	    
+	    try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
 		}
+
+	   
+		    conexionBD.cerrarConexion();
+		
 	}
 	
 	
@@ -169,20 +182,31 @@ public class SocioDAO {
 	    sentencia = "DELETE FROM socio WHERE dni = ?";
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
+	    
+	    PreparedStatement ps = null;
 
 	    try {
 
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	        ps = conexionBD.getConexion().prepareStatement(sentencia);
 	        ps.setString(1, dni);
 
 	        ps.executeUpdate();
+	        
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al eliminar socio");
+	        System.out.println("Error al eliminar socio");
 	    }
-
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
+	    
+	    try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
 		}
+
+	   
+		    conexionBD.cerrarConexion();
+		
 	}
 }

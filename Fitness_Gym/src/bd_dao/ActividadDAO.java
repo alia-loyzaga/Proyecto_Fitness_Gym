@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,19 +19,31 @@ public class ActividadDAO {
 
 	        ConexionBD conexionBD = new ConexionBD();
 	        conexionBD.abrirConexion();
+	        
+	        PreparedStatement ps = null;
 
 	        try {
 
-	            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	            ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 	            ps.setString(1, actividad.getNombre());
 	            ps.setString(2, actividad.getDescripcion());
 	            ps.setString(3, actividad.getNivel().name());
 
 	            ps.executeUpdate();
+	            
+	            
 
 	        } catch (SQLException e) {
-	            System.out.println(" --> Error al insertar actividad");
+	            System.out.println("Error al insertar actividad");
+	        }
+	        
+	        try {
+	            if (ps != null) {
+	                ps.close();
+	            }
+	        } catch (SQLException e) {
+	        	 // Ignorado: error al cerrar recursos
 	        }
 
 	        conexionBD.cerrarConexion();
@@ -48,25 +60,25 @@ public class ActividadDAO {
 
 	        Actividad actividad = null;
 
-	        try {
+	        try (PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)) {
 
-	            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
 	            ps.setString(1, nombre);
 
-	            ResultSet resultado = ps.executeQuery();
+	            try (ResultSet resultado = ps.executeQuery()) {
 
-	            if (resultado.next()) {
+	                if (resultado.next()) {
 
-	                actividad = new Actividad();
+	                    actividad = new Actividad();
 
-	                actividad.setId(resultado.getInt("id"));
-	                actividad.setNombre(resultado.getString("nombre"));
-	                actividad.setDescripcion(resultado.getString("descripcion"));
-	                actividad.setNivel(Nivel.valueOf(resultado.getString("nivel")));
+	                    actividad.setId(resultado.getInt("id"));
+	                    actividad.setNombre(resultado.getString("nombre"));
+	                    actividad.setDescripcion(resultado.getString("descripcion"));
+	                    actividad.setNivel(Nivel.valueOf(resultado.getString("nivel")));
+	                }
 	            }
 
 	        } catch (SQLException e) {
-	            System.out.println(" --> Error al buscar actividad");
+	            System.out.println("Error al buscar actividad");
 	        }
 
 	        conexionBD.cerrarConexion();
@@ -85,19 +97,19 @@ public class ActividadDAO {
 
 	        boolean existe = false;
 
-	        try {
+	        try (PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)) {
 
-	            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
 	            ps.setString(1, nombre);
 
-	            ResultSet resultado = ps.executeQuery();
+	            try (ResultSet resultado = ps.executeQuery()) {
 
-	            if (resultado.next()) {
-	                existe = true;
+	                if (resultado.next()) {
+	                    existe = true;
+	                }
 	            }
 
 	        } catch (SQLException e) {
-	            System.out.println(" --> Error al comprobar actividad");
+	            System.out.println("Error al comprobar actividad");
 	        }
 
 	        conexionBD.cerrarConexion();
@@ -113,19 +125,29 @@ public class ActividadDAO {
 
 	        ConexionBD conexionBD = new ConexionBD();
 	        conexionBD.abrirConexion();
+	        
+	        PreparedStatement ps = null;
 
 	        try {
 
-	            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	            ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 	            ps.setString(1, actividad.getDescripcion());
 	            ps.setString(2, actividad.getNivel().name());
 	            ps.setString(3, actividad.getNombre());
 
 	            ps.executeUpdate();
+	    
 
 	        } catch (SQLException e) {
-	            System.out.println(" --> Error al actualizar actividad");
+	            System.out.println("Error al actualizar actividad");
+	        }
+	        try {
+	            if (ps != null) {
+	                ps.close();
+	            }
+	        } catch (SQLException e) {
+	        	 // Ignorado: error al cerrar recursos
 	        }
 
 	        conexionBD.cerrarConexion();
@@ -139,17 +161,31 @@ public class ActividadDAO {
 
 	        ConexionBD conexionBD = new ConexionBD();
 	        conexionBD.abrirConexion();
+	        
+	        PreparedStatement ps = null;
 
 	        try {
 
-	            PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	            ps = conexionBD.getConexion().prepareStatement(sentencia);
 	            ps.setString(1, nombre);
 
 	            ps.executeUpdate();
+	         
 
 	        } catch (SQLException e) {
-	            System.out.println(" --> Error al eliminar actividad");
+	            System.out.println("Error al eliminar actividad");
 	        }
+	        
+	        try {
+	            if (ps != null) {
+	                ps.close();
+	            }
+	        } catch (SQLException e) {
+	        	 // Ignorado: error al cerrar recursos
+	        }
+
+	        
+	        
 
 	        conexionBD.cerrarConexion();
 	    }

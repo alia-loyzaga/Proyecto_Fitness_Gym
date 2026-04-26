@@ -4,8 +4,8 @@ package gestion;
 
 import java.util.List;
 
-import bdDAO.MaquinaDAO;
-import bdDAO.SalaDAO;
+import bd_dao.MaquinaDAO;
+import bd_dao.SalaDAO;
 import dominio.Maquina;
 import dominio.Sala;
 

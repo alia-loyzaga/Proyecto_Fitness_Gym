@@ -1,4 +1,4 @@
-package bdDAO;
+package bd_dao;
 
 import java.sql.PreparedStatement;
 
@@ -24,10 +24,12 @@ public class RecepcionistaDAO {
 		ConexionBD conexionBD = new ConexionBD();
 		conexionBD.abrirConexion();
 		
+		PreparedStatement ps = null;
+		
 		try {
 			
 		//preparo consulta(creo la consulta lista para usar)
-		PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+		 ps = conexionBD.getConexion().prepareStatement(sentencia);
 		
 		//Sustituyo ?
 		ps.setString(1, recepcionista.getDni());
@@ -37,113 +39,114 @@ public class RecepcionistaDAO {
 		
 		//ejecuto la sentencia
 		ps.executeUpdate();
+	
 		
 		
 		} catch (SQLException e) {
-			System.out.println("  --> Error en la Conexión");
-	}
+			System.out.println("Error en la Conexión");
+		}
+		
+		try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
+		}
 		
 	
 	//cierro conexion
-	if (conexionBD != null) {
+	
 	    conexionBD.cerrarConexion();
-	}
+	
 	
 	
 	}
 	
 	//buscar recepcionista en la base de datos (select)
 	public Recepcionista buscarPorDni(String dni) {
-		
-		sentencia = "SELECT * FROM recepcionista WHERE dni = ?";
-		
-		ConexionBD conexionBD = new ConexionBD();
-		conexionBD.abrirConexion();
-		Recepcionista recepcionista = null;
-		
-		try {
-			
-		//creo la consulta y sustituyo ?
-		PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
-		ps.setString(1, dni);
-		
-		//ejecuto SELECT en la base de datos y se devuelve un resultado(una tabla)
-		
-		ResultSet resultado = ps.executeQuery();
-		
-		//me posiciono en la fila y creo el recepcionista
-		if (resultado.next()) {
-			
-		    recepcionista = new Recepcionista();
-			recepcionista.setDni(resultado.getString("dni"));
-			recepcionista.setNombre(resultado.getString("nombre"));
-			recepcionista.setApellido1(resultado.getString("apellido1"));
-			recepcionista.setApellido2(resultado.getString("apellido2"));
-			
-		}
-			
-		}catch(SQLException e) {
-			System.out.println("  --> Error en la Conexión");
+
+	    sentencia = "SELECT * FROM recepcionista WHERE dni = ?";
+
+	    ConexionBD conexionBD = new ConexionBD();
+	    conexionBD.abrirConexion();
+
+	    Recepcionista recepcionista = null;
+
+	    try (
+	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)
+	    ) {
+
+	        ps.setString(1, dni);
+
+	        try (ResultSet resultado = ps.executeQuery()) {
+
+	            if (resultado.next()) {
+
+	                recepcionista = new Recepcionista();
+	                recepcionista.setDni(resultado.getString("dni"));
+	                recepcionista.setNombre(resultado.getString("nombre"));
+	                recepcionista.setApellido1(resultado.getString("apellido1"));
+	                recepcionista.setApellido2(resultado.getString("apellido2"));
+
+	            }
+
+	        }
+
+	    } catch (SQLException e) {
+	        System.out.println("Error en la Conexión");
 	    }
-		
-		//cierro conexion
-		if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
-		}
-		
-		//devuelve un recepcionista
-		return recepcionista;
-		
-		
+
+	    conexionBD.cerrarConexion();
+
+	    return recepcionista;
 	}
 	
 	//Comprobar si existe un recepcionista
 	public boolean existeRecepcionista(String dni) {
-		
 
 	    sentencia = "SELECT dni FROM recepcionista WHERE dni = ?";
-	    
+
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
 
-	    //bandera boleana
 	    boolean existe = false;
 
-	    try {
+	    try (
+	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia)
+	    ) {
 
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
 	        ps.setString(1, dni);
 
-	        ResultSet resultado = ps.executeQuery();
+	        try (ResultSet resultado = ps.executeQuery()) {
 
-	        //me posiciono en una fila y si existe entonces existe true.
-	        if (resultado.next()) {
-	            existe = true;
+	            if (resultado.next()) {
+	                existe = true;
+	            }
+
 	        }
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al comprobar recepcionista");
+	        System.out.println("Error al comprobar recepcionista");
 	    }
 
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
-		}
-		
+	    conexionBD.cerrarConexion();
 
 	    return existe;
 	}
-	
 	//modificar los datos del recepcionista
 	public void actualizarRecepcionista(Recepcionista recepcionista) {
 		
         sentencia = "UPDATE recepcionista SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
+	    
+	    PreparedStatement ps = null;
 
 	    try {
 
 	    	//creo la consulta y sustituyo ?
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	        ps = conexionBD.getConexion().prepareStatement(sentencia);
 
 	        ps.setString(1, recepcionista.getNombre());
 	        ps.setString(2, recepcionista.getApellido1());
@@ -152,14 +155,25 @@ public class RecepcionistaDAO {
 
 	        //ejecuto la sentencia
 	        ps.executeUpdate();
+	        
+	     
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al actualizar recepcionista");
+	        System.out.println("Error al actualizar recepcionista");
 	    }
-
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
+	    
+	    try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
 		}
+		
+
+	    
+		    conexionBD.cerrarConexion();
+		
 	}
 	
 	
@@ -170,21 +184,33 @@ public class RecepcionistaDAO {
 	    sentencia = "DELETE FROM recepcionista WHERE dni = ?";
 	    ConexionBD conexionBD = new ConexionBD();
 	    conexionBD.abrirConexion();
+	    
+	    PreparedStatement ps = null;
 
 	    try {
 
-	        PreparedStatement ps = conexionBD.getConexion().prepareStatement(sentencia);
+	        ps = conexionBD.getConexion().prepareStatement(sentencia);
 	        ps.setString(1, dni);
 
 	        ps.executeUpdate();
+	        
+	       
 
 	    } catch (SQLException e) {
-	        System.out.println(" --> Error al eliminar recepcionista");
+	        System.out.println("Error al eliminar recepcionista");
 	    }
-
-	    if (conexionBD != null) {
-		    conexionBD.cerrarConexion();
+	    
+	    try {
+			if (ps != null) {
+				ps.close();
+			}
+		} catch (SQLException e) {
+			 // Ignorado: error al cerrar recursos
 		}
+
+	    
+		    conexionBD.cerrarConexion();
+		
 	}
 
 }
