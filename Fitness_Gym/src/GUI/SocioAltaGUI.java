@@ -18,7 +18,16 @@ import javax.swing.border.EmptyBorder;
 
 import gestion.ResultadoGestion;
 
-
+/**
+ * Interfaz gráfica destinada al registro de nuevos socios
+ * dentro del sistema Fitness Gym.
+ * 
+ * Permite introducir los datos personales básicos
+ * y gestionar su alta en el sistema.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class SocioAltaGUI extends JFrame {
 
 
@@ -84,7 +93,7 @@ public class SocioAltaGUI extends JFrame {
 	private void configuraEtiquetas() {
 
 		// Etiqueta general - Titulo
-		lblTituloPanel = new JLabel("Alta Cliente");
+		lblTituloPanel = new JLabel("Registro Socio");
 		lblTituloPanel.setFont(new Font("Tw Cen MT", Font.PLAIN, 21));
 		lblTituloPanel.setBounds(35, 11, 102, 23);
 		contentPane.add(lblTituloPanel);
@@ -131,19 +140,22 @@ public class SocioAltaGUI extends JFrame {
 				listenerBotonEnviar();
 			}
 		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(300, 213, 100, 23);
+		contentPane.add(btnVolver);
 
-		JButton btnPlanner = new JButton("Ver planificación");
-		btnPlanner.setBounds(150, 213, 160, 23);
-		contentPane.add(btnPlanner);
-
-		btnPlanner.addActionListener(new ActionListener() {
+		btnVolver.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 
-		        FitnessPlannerGUI planner = new FitnessPlannerGUI();
-		        planner.setVisible(true);
+		        MenuPrincipalGUI menu = new MenuPrincipalGUI();
+		        menu.setVisible(true);
 
+		        dispose();
 		    }
 		});
+
+		
 	} // fin configurarBotones
 
 	// --------- Configura Campos Texto -------------
@@ -200,7 +212,13 @@ public class SocioAltaGUI extends JFrame {
 			case OK:
 				lblAdvertencia.setForeground(Color.GREEN);
 				lblAdvertencia.setText("✔️   Socio incluido");
+				
+				PanelSocioGUI panel = new PanelSocioGUI();
+			    panel.setVisible(true);
+			    dispose();
+			    
 				break;
+				
 			case YA_EXISTE:
 				lblAdvertencia.setForeground(Color.RED);
 				lblAdvertencia.setText("⚠️   ADVERTENCIA: Existe DNI");

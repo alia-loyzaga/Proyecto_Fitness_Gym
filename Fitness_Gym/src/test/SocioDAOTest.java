@@ -6,7 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import bd_dao.SocioDAO;
 import dominio.Socio;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de SocioDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class SocioDAOTest {
 
     private final SocioDAO socioDAO = new SocioDAO();

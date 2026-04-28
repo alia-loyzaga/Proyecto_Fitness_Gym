@@ -18,7 +18,13 @@ import enumerados.EstadoReserva;
 import enumerados.EstadoSocio;
 import enumerados.Nivel;
 import enumerados.TipoPlan;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de Socio.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class SocioTest {
 
 	 @Test

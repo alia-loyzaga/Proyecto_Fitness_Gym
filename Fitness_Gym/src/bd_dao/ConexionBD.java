@@ -1,10 +1,21 @@
 package bd_dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+/**
+ * Clase encargada de gestionar la conexión con la base de datos.
+ * 
+ * Proporciona métodos para abrir, obtener y cerrar la conexión,
+ * permitiendo el acceso seguro a la persistencia de datos del sistema.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 
 public class ConexionBD {
 

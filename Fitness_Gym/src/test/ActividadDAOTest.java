@@ -8,6 +8,13 @@ import bd_dao.ActividadDAO;
 import dominio.Actividad;
 import enumerados.Nivel;
 
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de ActividadDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class ActividadDAOTest {
 
     private final ActividadDAO actividadDAO = new ActividadDAO();

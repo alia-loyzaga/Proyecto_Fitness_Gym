@@ -6,11 +6,31 @@ import java.sql.SQLException;
 
 import dominio.Administrador;
 
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para los administradores del sistema.
+ * 
+ * Permite realizar operaciones CRUD sobre administradores:
+ * insertar, buscar, comprobar existencia, actualizar y eliminar.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class AdministradorDAO {
+	
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
 
 	String sentencia;
 
 	// insertar administrador en la base de datos
+	
+	/**
+	 * Inserta un nuevo administrador en la base de datos.
+	 * 
+	 * @param administrador Objeto administrador a insertar
+	 */
 
 	public void insertarAdministrador(Administrador administrador) {
 
@@ -56,6 +76,12 @@ public class AdministradorDAO {
 	}
 
 	// buscar administrador en la base de datos (select)
+	/**
+	 * Busca un administrador por su DNI.
+	 * 
+	 * @param dni DNI del administrador
+	 * @return Administrador encontrado o null si no existe
+	 */
 	public Administrador buscarPorDni(String dni) {
 
 	    sentencia = "SELECT * FROM administrador WHERE dni = ?";
@@ -95,6 +121,12 @@ public class AdministradorDAO {
 	}
 
 	// Comprobar si existe un administrador
+	/**
+	 * Comprueba si existe un administrador con el DNI indicado.
+	 * 
+	 * @param dni DNI del administrador
+	 * @return true si existe, false en caso contrario
+	 */
 	public boolean existeAdministrador(String dni) {
 
 	    sentencia = "SELECT dni FROM administrador WHERE dni = ?";
@@ -128,6 +160,11 @@ public class AdministradorDAO {
 	}
 
 	// modificar los datos del administrador
+	/**
+	 * Actualiza los datos de un administrador existente.
+	 * 
+	 * @param administrador Administrador con datos actualizados
+	 */
 	public void actualizarAdministrador(Administrador administrador) {
 
 		sentencia = "UPDATE administrador SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
@@ -167,6 +204,11 @@ public class AdministradorDAO {
 
 	// eliminar recepcionista de la base de datos
 
+	/**
+	 * Elimina un administrador de la base de datos.
+	 * 
+	 * @param dni DNI del administrador a eliminar
+	 */
 	public void eliminarAdministrador(String dni) {
 
 		sentencia = "DELETE FROM administrador WHERE dni = ?";

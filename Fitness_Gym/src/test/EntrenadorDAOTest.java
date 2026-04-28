@@ -6,7 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import bd_dao.EntrenadorDAO;
 import dominio.Entrenador;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de EntrenadorDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class EntrenadorDAOTest {
 
     private final EntrenadorDAO entrenadorDAO = new EntrenadorDAO();

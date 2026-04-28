@@ -15,7 +15,16 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
-
+/**
+ * Interfaz gráfica destinada a mostrar
+ * la planificación de actividades del gimnasio.
+ * 
+ * Permite consultar actividades programadas
+ * y generar datos en formato JSON.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class FitnessPlannerGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -48,7 +57,7 @@ public class FitnessPlannerGUI extends JFrame {
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		
-		JButton boton = new JButton("Mostrar planificación");
+		JButton boton = new JButton("Fitness Planner");
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -60,9 +69,11 @@ public class FitnessPlannerGUI extends JFrame {
 				for(ActividadProgramada a:lista) {
 					
 					textArea.append(
+							"ID: " + a.getId() + " - " +
 							a.getActividad().getNombre() + " - " +
-								    a.getSala().getNombre() + " - " +
-								    a.getFechaHoraInicio() + "\n"
+									a.getSala().getNombre() + " - " +
+									a.getEntrenador().getNombre() + " - " +
+									a.getFechaHoraInicio() + "\n"
 							);
 					
 				}
@@ -86,6 +97,17 @@ public class FitnessPlannerGUI extends JFrame {
 		        json.generarFicheros();
 
 		        textArea.append("\nJSON generado correctamente.\n");
+		    }
+		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(200, 390, 250, 30);
+		contentPane.add(btnVolver);
+
+		btnVolver.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+
+		        dispose();
 		    }
 		});
 	

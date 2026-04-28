@@ -12,6 +12,13 @@ import dominio.Maquina;
 import dominio.Sala;
 import enumerados.EstadoMaquina;
 
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de MaquinaDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class MaquinaDAOTest {
 
     private final MaquinaDAO maquinaDAO = new MaquinaDAO();

@@ -8,7 +8,13 @@ import bd_dao.ReservaDAO;
 import dominio.ActividadProgramada;
 import dominio.Reserva;
 import dominio.Socio;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de ReservaDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class ReservaDAOTest {
 
     private final ReservaDAO reservaDAO = new ReservaDAO();

@@ -10,6 +10,9 @@ import enumerados.TipoPlan;
 /**
  * Clase que representa a un socio del gimnasio.
  * Hereda de usuario y contiene información específica.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class Socio extends Usuario {
@@ -20,24 +23,11 @@ public class Socio extends Usuario {
 	private List<Reserva>listaReservas;
 	
 	//construtores
-	/**
-	 * Constructor vacío
-	 */
+	
 	public Socio() {
 		
 	}
-	/**
-	 * Constructor con parámetros
-	 * @param dni Dni del socio.
-	 * @param nombre Nombre del socio.
-	 * @param apellido1 Apellidos del socio(apellido1, apellido2).
-	 * @param apellido2 
-	 * @param telefono Teléfono de contacto.
-	 * @param email Correo electrónico.
-	 * @param fechaAlta Fecha de alta en el sistema del socio.
-	 * @param tipoPlan Tipo de plan contratado.
-	 * @param estado Estado del socio (activo, baja, moroso).
-	 */
+
 	
 	public Socio(String dni, String nombre, String apellido1, String apellido2, String telefono,
 			String email, LocalDate fechaAlta, TipoPlan tipoPlan, EstadoSocio estado ) {
@@ -50,13 +40,7 @@ public class Socio extends Usuario {
 		
 		
 	}
-	/**
-	 * Constructor básico de socio
-	 * @param dni Dni del socio
-	 * @param nombre Nombre del socio
-	 * @param apellido1 Primer apellido
-	 * @param apellido2 Segundo apellido
-	 */
+	
 	public Socio(String dni, String nombre, String apellido1, String apellido2) {
 		super(dni, nombre, apellido1, apellido2, null, null);
 		this.listaReservas = new ArrayList<>();

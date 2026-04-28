@@ -1,18 +1,39 @@
 package bd_dao;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dominio.Entrenador;
 
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para los entrenadores del sistema.
+ * 
+ * Permite realizar operaciones CRUD sobre entrenadores:
+ * insertar, buscar, comprobar existencia, actualizar y eliminar.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
+
 
 public class EntrenadorDAO {
+	
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
 
 	String sentencia;
 	
 	
 	//insertar entrenador en la base de datos
+	/**
+	 * Inserta un nuevo entrenador en la base de datos.
+	 * 
+	 * @param entrenador Objeto entrenador a insertar.
+	 */
 	
 	public void insertarEntrenador(Entrenador entrenador) {
 		
@@ -64,6 +85,12 @@ public class EntrenadorDAO {
 	}
 	
 	//buscar entrenador en la base de datos (select)
+	/**
+	 * Busca un entrenador por su DNI.
+	 * 
+	 * @param dni DNI del entrenador
+	 * @return Entrenador encontrado o null si no existe
+	 */
 	public Entrenador buscarPorDni(String dni) {
 
 	    sentencia = "SELECT * FROM entrenador WHERE dni = ?";
@@ -103,6 +130,12 @@ public class EntrenadorDAO {
 	}
 	
 	//Comprobar si existe un entrenador
+	/**
+	 * Comprueba si existe un entrenador con el DNI indicado.
+	 * 
+	 * @param dni DNI del entrenador
+	 * @return true si existe, false en caso contrario
+	 */
 	public boolean existeEntrenador(String dni) {
 
 	    sentencia = "SELECT dni FROM entrenador WHERE dni = ?";
@@ -135,6 +168,11 @@ public class EntrenadorDAO {
 	    return existe;
 	}
 	//modificar los datos del entrenador
+	/**
+	 * Actualiza los datos de un entrenador existente.
+	 * 
+	 * @param entrenador Entrenador con datos actualizados
+	 */
 	public void actualizarEntrenador(Entrenador entrenador) {
 		
         sentencia = "UPDATE entrenador SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
@@ -175,6 +213,11 @@ public class EntrenadorDAO {
 	
 	
 	//eliminar entrenador de la base de datos
+	/**
+	 * Elimina un entrenador de la base de datos.
+	 * 
+	 * @param dni DNI del entrenador a eliminar
+	 */
 	
 	public void eliminarEntrenador(String dni) {
 

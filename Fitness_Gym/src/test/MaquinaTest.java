@@ -9,7 +9,13 @@ import org.junit.jupiter.api.Test;
 import dominio.Maquina;
 import dominio.Sala;
 import enumerados.EstadoMaquina;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de Maquina.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class MaquinaTest {
 
     @Test

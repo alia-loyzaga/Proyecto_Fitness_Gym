@@ -3,7 +3,16 @@ package dominio;
 import enumerados.Nivel;
 
 /**
- * Clase que representa a una actividad del gimnasio
+ * Clase que representa una actividad deportiva dentro del sistema Fitness Gym.
+ * 
+ * Define la información básica de cada actividad, incluyendo su identificación,
+ * nombre, descripción, nivel de dificultad y precio.
+ * 
+ * Sirve como entidad de dominio para la gestión de actividades
+ * ofrecidas por el gimnasio.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class Actividad {
@@ -17,20 +26,12 @@ public class Actividad {
 
 	//constructores
 	
-	/**
-	 * Constructor vacío.
-	 */
+	
 	public Actividad() {
 		
 	}
 	
-	/**
-	 * Constructor con parámetros
-	 * @param nombre Nombre de la actividad.
-	 * @param descripcion Descripcion breve de la actividad.
-	 * @param nivel Nivel de ejecución de la actividad(básico, intermedio, avanzado).
-	 * @param precio Precio de la actividad.
-	 */
+	
 	
 	public Actividad(int id,String nombre, String descripcion, Nivel nivel, double precio) {
 		this.id = id;
@@ -81,6 +82,10 @@ public class Actividad {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+    
+    // toString
+
+    
 
 	@Override
 	public String toString() {
@@ -88,10 +93,6 @@ public class Actividad {
 				+ ", precio=" + precio + "]";
 	}
 
-    // toString
-
-    /**
-     * Devuelve una representación en texto de la actividad.
-     */
+    
    
 }

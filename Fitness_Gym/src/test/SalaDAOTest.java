@@ -6,7 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import bd_dao.SalaDAO;
 import dominio.Sala;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de SalaDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class SalaDAOTest {
 
     private final SalaDAO salaDAO = new SalaDAO();

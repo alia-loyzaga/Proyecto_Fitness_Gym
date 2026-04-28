@@ -16,6 +16,9 @@ import dominio.Usuario;
  * 
  * Actúa como intermediaria entre la capa de presentación (Inicio/GUI)
  * y la capa de persistencia (DAO), aplicando la lógica de negocio.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class UsuarioGestion {
@@ -73,6 +76,14 @@ public class UsuarioGestion {
 
         return existe;
     }
+    
+    /**
+     * Comprueba si ya existe un socio registrado
+     * con el DNI indicado.
+     * 
+     * @param dni DNI del socio a comprobar
+     * @return Resultado indicando si existe o está disponible
+     */
     
     public ResultadoGestion existeSocio(String dni) {
 

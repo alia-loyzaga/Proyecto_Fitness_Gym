@@ -3,7 +3,11 @@ package dominio;
 import java.util.ArrayList;
 
 /**
- * Clase que representa una sala del gimnasio.
+ * Clase que representa una sala del gimnasio,
+ * incluyendo su informacíon básica y su capacidad.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class Sala {
@@ -18,19 +22,10 @@ public class Sala {
 	
 	
 	//constructores
-	/**
-	 * Constructor vacío
-	 */
+
 	public Sala() {
 		
 	}
-	
-	/**
-	 * Constructor con parámetros
-	 * @param nombre Nombre de la sala.
-	 * @param metrosCuadrados Tamaño de la sala en metros cuadrados.
-	 * @param aforoMaximo Capacidad máxima de personas en la sala.
-	 */
 	
 	public Sala(String nombre, double metrosCuadrados, int aforoMaximo) {
 		this.nombre = nombre;

@@ -11,7 +11,13 @@ import dominio.Actividad;
 import dominio.ActividadProgramada;
 import dominio.Entrenador;
 import dominio.Sala;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de ActividadProgramadaDAO.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class ActividadProgramadaDAOTest {
 
     private final ActividadProgramadaDAO actividadProgramadaDAO =

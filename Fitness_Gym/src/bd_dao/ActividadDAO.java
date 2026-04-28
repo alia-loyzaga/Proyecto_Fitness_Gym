@@ -1,16 +1,37 @@
 package bd_dao;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dominio.Actividad;
 import enumerados.Nivel;
 
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para las actividades del gimnasio.
+ * 
+ * Permite realizar operaciones CRUD sobre actividades:
+ * insertar, buscar, actualizar y eliminar.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
+
 public class ActividadDAO {
+	
+	 /**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
 	
 	 private String sentencia;
 
+	  /**
+	     * Inserta una nueva actividad en la base de datos.
+	     * 
+	     * @param actividad Objeto Actividad con nombre, descripción y nivel.
+	     */
 
 	    // INSERTAR ACTIVIDAD
 	    public void insertarActividad(Actividad actividad) {
@@ -50,6 +71,12 @@ public class ActividadDAO {
 	    }
 
 
+	    /**
+	     * Busca una actividad por su nombre.
+	     * 
+	     * @param nombre Nombre de la actividad a buscar.
+	     * @return Objeto Actividad si existe, null si no se encuentra.
+	     */
 	    // BUSCAR POR NOMBRE
 	    public Actividad buscarPorNombre(String nombre) {
 
@@ -86,6 +113,12 @@ public class ActividadDAO {
 	        return actividad;
 	    }
 
+	    /**
+	     * Comprueba si una actividad ya existe en la base de datos.
+	     * 
+	     * @param nombre Nombre de la actividad.
+	     * @return true si existe, false en caso contrario.
+	     */
 
 	    // EXISTE ACTIVIDAD
 	    public boolean existeActividad(String nombre) {
@@ -117,6 +150,11 @@ public class ActividadDAO {
 	        return existe;
 	    }
 
+	    /**
+	     * Actualiza la descripción y nivel de una actividad existente.
+	     * 
+	     * @param actividad Actividad con datos actualizados.
+	     */
 
 	    // ACTUALIZAR ACTIVIDAD
 	    public void actualizarActividad(Actividad actividad) {
@@ -153,6 +191,11 @@ public class ActividadDAO {
 	        conexionBD.cerrarConexion();
 	    }
 
+	    /**
+	     * Elimina una actividad de la base de datos según su nombre.
+	     * 
+	     * @param nombre Nombre de la actividad a eliminar.
+	     */
 
 	    // ELIMINAR ACTIVIDAD
 	    public void eliminarActividad(String nombre) {

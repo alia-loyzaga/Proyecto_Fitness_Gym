@@ -7,7 +7,13 @@ import org.junit.jupiter.api.Test;
 import dominio.Sala;
 import gestion.GestionSalaMaquina;
 import gestion.ResultadoGestion;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de GestionSalaMaquina.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class GestionSalaMaquinaTest {
 
     private final GestionSalaMaquina gestionSalaMaquina =

@@ -9,7 +9,13 @@ import dominio.Reserva;
 
 import gestion.GestionReservas;
 import gestion.ResultadoGestion;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de GestionReservas.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class GestionReservasTest {
 
     private final GestionReservas gestionReservas =

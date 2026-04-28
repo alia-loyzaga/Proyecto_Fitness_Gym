@@ -8,7 +8,13 @@ import dominio.Actividad;
 import enumerados.Nivel;
 import gestion.GestionActividades;
 import gestion.ResultadoGestion;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de GestionActividades.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class GestionActividadesTest {
 
     private final GestionActividades gestionActividades =

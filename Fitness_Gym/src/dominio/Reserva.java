@@ -2,7 +2,17 @@ package dominio;
 
 import enumerados.EstadoReserva;
 
-
+/**
+ * Clase que representa una reserva de actividad realizada por un socio
+ * dentro del sistema Fitness Gym.
+ * 
+ * Gestiona la relación entre el socio y la actividad programada,
+ * así como el estado de la reserva durante su ciclo de vida
+ * (confirmación o cancelación).
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class Reserva {
 	
 	private int id;
@@ -12,19 +22,11 @@ public class Reserva {
 	
 	//constructores
 	
-	/**
-	 * Constructor vacío
-	 */
+	
 	public Reserva() {
 		
 	}
 	
-	/**
-	 * Constructor con parámetros
-	 * @param actividadProgramada Actividad programada.
-	 * @param socio Socio que realiza la reserva.
-	 * @param estado Estado de la reserva.
-	 */
 	public Reserva(int id, ActividadProgramada actividadProgramada, Socio socio, EstadoReserva estado) {
 		this.id = id;
 		this.actividadProgramada = actividadProgramada;
@@ -32,11 +34,7 @@ public class Reserva {
 		this.estado = estado;
 	}
 	
-	/**
-	 * Constructor básico
-	 * @param actividadProgramada Actividad programada
-	 * @param socio Socio que realiza la reserva
-	 */
+	
 	
 	public Reserva(ActividadProgramada actividadProgramada, Socio socio) {
 		super();
@@ -81,9 +79,7 @@ public class Reserva {
         this.estado = estado;
     }
 
-    /**
-     * Representación en texto de la reserva.
-     */
+   
     @Override
     public String toString() {
         return "Reserva [actividad=" + actividadProgramada +
@@ -94,11 +90,16 @@ public class Reserva {
     //Métodos de dominio
    
     
-    
+    /**
+     * Cancela la reserva actual cambiando su estado a cancelada.
+     */
     public void cancelarReserva() {
         estado = EstadoReserva.CANCELADA;
     }
     
+    /**
+     * Confirma la reserva actual cambiando su estado a confirmada.
+     */
     
     public void confirmarReserva() {
         estado = EstadoReserva.CONFIRMADA;

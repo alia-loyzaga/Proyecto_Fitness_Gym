@@ -10,8 +10,22 @@ import dominio.ActividadProgramada;
 import dominio.Sala;
 import gestion.GestionActividades;
 
+/**
+ * Clase encargada de generar y exportar
+ * datos del sistema en formato JSON.
+ * 
+ * Facilita la integración de información
+ * entre la aplicación Java y el proyecto web.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class Json {
 	
+	/**
+	 * Genera los ficheros JSON necesarios
+	 * para exportar datos del sistema al entorno web.
+	 */
 	public void generarFicheros() {
 
         SalaDAO salaDAO = new SalaDAO();
@@ -55,8 +69,18 @@ public class Json {
                         fw.write("        \"actividad\": \"" + ap.getActividad().getNombre() + finLinea);
                         fw.write("        \"fechaInicio\": \"" + ap.getFechaHoraInicio() + finLinea);
                         fw.write("        \"fechaFin\": \"" + ap.getFechaHoraFin() + finLinea);
-                        fw.write("        \"entrenador\": \"" + ap.getEntrenador().getDni() + finLinea);
-                        fw.write("      ");
+                        fw.write("        \"plazasLibres\": " + sala.getAforoMaximo() + ",\n");
+                        
+                        if(ap.getEntrenador() != null && ap.getEntrenador().getDni() != null) {
+                        	 fw.write("        \"entrenador\": \"" 
+                        		        + ap.getEntrenador().getNombre() + " "
+                        		        + ap.getEntrenador().getApellido1()
+                        		        + "\"\n");
+                        } else {
+                            fw.write("        \"entrenador\": \"Pendiente\"\n");
+                        }
+                        
+                        fw.write("      }");
 
                         primeraActividad = false;
                     }

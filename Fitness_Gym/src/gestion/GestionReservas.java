@@ -8,6 +8,9 @@ import dominio.Socio;
 /**
  * Clase de la capa de gestión encargada de coordinar las operaciones
  * relacionadas con la gestión de reservas.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class GestionReservas {
@@ -23,7 +26,15 @@ public class GestionReservas {
 	reservaDAO = new ReservaDAO();
 	}
 	
-	
+	/**
+	 * Valida si un socio puede realizar una reserva
+	 * comprobando disponibilidad, estado económico
+	 * y posibles conflictos horarios.
+	 * 
+	 * @param socio Socio que realiza la reserva
+	 * @param actividadProgramada Actividad a reservar
+	 * @return true si la reserva es válida, false en caso contrario
+	 */
 	private boolean validarReserva(Socio socio, ActividadProgramada actividadProgramada) {
 
 	    boolean valida = true;

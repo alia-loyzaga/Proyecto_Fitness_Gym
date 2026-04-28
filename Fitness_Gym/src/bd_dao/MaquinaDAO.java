@@ -12,10 +12,26 @@ import dominio.Maquina;
 import dominio.Sala;
 import enumerados.EstadoMaquina;
 
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para las máquinas del gimnasio.
+ * 
+ * Permite realizar operaciones de inserción, consulta y actualización
+ * relacionadas con las máquinas y su estado dentro de las salas.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class MaquinaDAO {
 	
 	
 	// INSERTAR MÁQUINA
+	/**
+	 * Inserta una nueva máquina en la base de datos.
+	 * 
+	 * @param m Máquina a insertar
+	 * @return true si la inserción fue correcta, false en caso contrario
+	 */
     public boolean insertarMaquina(Maquina m) {
         boolean insertado = false;
 
@@ -72,6 +88,12 @@ public class MaquinaDAO {
     }
 
     // OBTENER MÁQUINAS POR SALA
+    /**
+     * Obtiene todas las máquinas asociadas a una sala concreta.
+     * 
+     * @param salaId Identificador de la sala
+     * @return Lista de máquinas pertenecientes a la sala
+     */
     public List<Maquina> obtenerMaquinasPorSala(int salaId) {
 
         List<Maquina> lista = new ArrayList<>();
@@ -130,6 +152,13 @@ public class MaquinaDAO {
     }
 
     // ACTUALIZAR ESTADO
+    /**
+     * Actualiza el estado de una máquina según su número de serie.
+     * 
+     * @param numeroSerie Número de serie de la máquina
+     * @param nuevoEstado Nuevo estado a asignar
+     * @return true si la actualización fue correcta, false en caso contrario
+     */
     public boolean actualizarEstado(String numeroSerie, String nuevoEstado) {
         boolean actualizado = false;
 

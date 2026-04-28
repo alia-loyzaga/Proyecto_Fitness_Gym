@@ -18,6 +18,9 @@ import dominio.Sala;
  * Actúa como intermediaria entre la capa de presentación (GUI)
  * y la capa de persistencia (DAO), aplicando la lógica de negocio
  * correspondiente antes de delegar en la capa DAO.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class GestionSalaMaquina {
@@ -140,6 +143,15 @@ public class GestionSalaMaquina {
     }
 
     //GESTION DE MAQUINAS
+    /**
+     * Da de alta una nueva máquina en el sistema.
+     * 
+     * @param tipo Tipo de máquina
+     * @param marca Marca de la máquina
+     * @param numeroSerie Número de serie único
+     * @param sala Sala donde se ubicará
+     * @return Resultado de la operación de alta
+     */
     
     public ResultadoGestion altaMaquina(String tipo, String marca, String numeroSerie, Sala sala) {
 
@@ -154,11 +166,24 @@ public class GestionSalaMaquina {
         return resultado;
     }
 
+    /**
+     * Obtiene todas las máquinas asociadas a una sala concreta.
+     * 
+     * @param idSala Identificador de la sala
+     * @return Lista de máquinas de la sala indicada
+     */
     public List<Maquina> obtenerMaquinasDeSala(int idSala) {
 
         return maquinaDAO.obtenerMaquinasPorSala(idSala);
     }
     
+    /**
+     * Comprueba si una sala dispone de máquinas
+     * que se encuentren actualmente en revisión.
+     * 
+     * @param sala Sala a comprobar
+     * @return true si hay máquinas en revisión, false en caso contrario
+     */
     public boolean hayMaquinasEnRevision(Sala sala) {
 
         boolean hay = false;

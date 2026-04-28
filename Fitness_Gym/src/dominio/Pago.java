@@ -5,6 +5,18 @@ import java.time.LocalDate;
 import enumerados.EstadoPago;
 import enumerados.TipoPago;
 
+/**
+ * Clase que representa un pago dentro del sistema Fitness Gym.
+ * 
+ * Gestiona la información relacionada con los pagos realizados
+ * por los socios, incluyendo importe, estado y control
+ * de confirmación de operaciones económicas.
+ * 
+ * Forma parte de la lógica de gestión financiera del gimnasio.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class Pago {
 
 	private Reserva reserva;
@@ -14,15 +26,7 @@ public class Pago {
 	private EstadoPago estado;
 	private TipoPago tipoPago;
 	
-	/**
-	 * Constructor con parámetros
-	 * @param reserva 
-	 * @param socio
-	 * @param fecha
-	 * @param cantidad
-	 * @param estado
-	 * @param tipoPago
-	 */
+	
 	public Pago(Reserva reserva, Socio socio, LocalDate fecha, double cantidad, EstadoPago estado, TipoPago tipoPago) {
 		
 		this.reserva = reserva;
@@ -34,9 +38,6 @@ public class Pago {
 	}
 
 	
-	/**
-	 * Constructor vacío
-	 */
 	public Pago() {
 	
 	}
@@ -111,6 +112,15 @@ public class Pago {
 	
 	
 	//Métodos de dominio
+	/**
+	 * Confirma un pago pendiente cambiando su estado a confirmado.
+	 * 
+	 * Solo podrá confirmarse si el pago se encuentra
+	 * actualmente en estado pendiente.
+	 * 
+	 * @return true si el pago se confirma correctamente,
+	 *         false si ya estaba confirmado o no es válido
+	 */
 	public boolean confirmarPago() {
 
 	    boolean confirmado;

@@ -1,6 +1,7 @@
 package bd_dao;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,14 +9,20 @@ import dominio.ActividadProgramada;
 import dominio.Reserva;
 import dominio.Socio;
 
-public class ReservaDAO {
-
 	/**
 	 * DAO encargado de gestionar la persistencia de reservas en la base de datos
 	 * mediante la tabla inscripcion.
+	 * 
+	 * @author Alia
+	 * @version 1.0
 	 */
 
-	private String sentencia;
+public class ReservaDAO {
+
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
+	 String sentencia;
 
 	/**
 	 * Inserta una nueva reserva en la base de datos.

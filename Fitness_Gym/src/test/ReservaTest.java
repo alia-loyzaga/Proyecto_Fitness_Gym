@@ -6,7 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import dominio.Reserva;
 import enumerados.EstadoReserva;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de Reserva.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class ReservaTest {
 
 	 @Test

@@ -4,6 +4,16 @@ import java.time.LocalDate;
 
 import enumerados.TipoContrato;
 
+/**
+ * Clase que representa el salario asociado a un entrenador
+ * dentro del sistema Fitness Gym.
+ * 
+ * Gestiona la información económica relacionada con pagos
+ * salariales según el tipo de contrato del empleado.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class Salario {
 	
 	private double cantidad;
@@ -11,13 +21,6 @@ public class Salario {
 	private Entrenador entrenador;
 	private double horas;
 	
-	/**
-	 * Constructo con parámetros 
-	 * @param cantidad Cantidad a percibir para un entrenador
-	 * @param fecha
-	 * @param entrenador Entrenador que recibe el salario
-	 * @param horas Horas trabajadas si es jornada parcial
-	 */
 	public Salario(double cantidad, LocalDate fecha, Entrenador entrenador, double horas) {
 		
 		this.cantidad = cantidad;
@@ -60,6 +63,17 @@ public class Salario {
 	
 	
 	//Métodos de dominio
+	/**
+	 * Calcula el salario del entrenador en función
+	 * de su tipo de contrato.
+	 * 
+	 * Los contratos a tiempo parcial se calculan
+	 * según cantidad por horas trabajadas,
+	 * mientras que los contratos completos
+	 * mantienen una cantidad fija.
+	 * 
+	 * @return Salario calculado
+	 */
 	
 	public double calcularSalario() {
 

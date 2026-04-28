@@ -3,6 +3,9 @@ package dominio;
 /**
  * Clase abstracta que representa a un usuario del sistema.
  * Contiene los datos comunes a cada tipo de usuario.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 public abstract class Usuario {
 	
@@ -15,24 +18,12 @@ public abstract class Usuario {
 	
 	//constructores
 	
-	/**
-	 * Constructor vacío
-	 */
+	
 	
 	protected Usuario() {
 		
 	}
-	
-	/** 
-	 * Constructor con parámetros
-	 * @param dni Dni del usuario.
-	 * @param nombre Nombre del usuario.
-	 * @param apellido1 Apellidos del usuario(apellido1, apellido2).
-	 * @param apellido2
-	 * @param telefono Telefono de contacto
-	 * @param email Dirección de correo electrónico del usuario
-	 */
-	
+
 	protected Usuario(String dni, String nombre, String apellido1, String apellido2, String telefono, String email) {
 		this.dni = dni;
 		this.nombre = nombre;

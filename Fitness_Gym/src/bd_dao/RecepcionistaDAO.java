@@ -2,18 +2,39 @@ package bd_dao;
 
 import java.sql.PreparedStatement;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 import dominio.Recepcionista;
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para los recepcionistas del sistema.
+ * 
+ * Permite realizar operaciones CRUD sobre recepcionistas:
+ * insertar, buscar, comprobar existencia, actualizar y eliminar.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 
 public class RecepcionistaDAO {
+	
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
+
 
 	String sentencia;
 	
 	
 	//insertar recepcionista en la base de datos
+	/**
+	 * Inserta un nuevo recepcionsita en la base de datos.
+	 * 
+	 * @param recepcionista Objeto recepcionista a insertar
+	 */
 	
 	public void insertarRecepcionista(Recepcionista recepcionista) {
 		
@@ -64,6 +85,12 @@ public class RecepcionistaDAO {
 	}
 	
 	//buscar recepcionista en la base de datos (select)
+	/**
+	 * Busca un recepcionista por su DNI.
+	 * 
+	 * @param dni DNI del recepcionista
+	 * @return Recepcionista encontrado o null si no existe
+	 */
 	public Recepcionista buscarPorDni(String dni) {
 
 	    sentencia = "SELECT * FROM recepcionista WHERE dni = ?";
@@ -103,6 +130,12 @@ public class RecepcionistaDAO {
 	}
 	
 	//Comprobar si existe un recepcionista
+	/**
+	 * Comprueba si existe un recepcionsita con el DNI indicado.
+	 * 
+	 * @param dni DNI del recpecionista
+	 * @return true si existe, false en caso contrario
+	 */
 	public boolean existeRecepcionista(String dni) {
 
 	    sentencia = "SELECT dni FROM recepcionista WHERE dni = ?";
@@ -135,6 +168,11 @@ public class RecepcionistaDAO {
 	    return existe;
 	}
 	//modificar los datos del recepcionista
+	/**
+	 * Actualiza los datos de un recepcionista existente.
+	 * 
+	 * @param recepcionista Recepcionista con datos actualizados
+	 */
 	public void actualizarRecepcionista(Recepcionista recepcionista) {
 		
         sentencia = "UPDATE recepcionista SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
@@ -178,6 +216,11 @@ public class RecepcionistaDAO {
 	
 	
 	//eliminar recepcionista de la base de datos
+	/**
+	 * Elimina un recepcionista de la base de datos.
+	 * 
+	 * @param dni DNI del recepcionista a eliminar.
+	 */
 	
 	public void eliminarRecepcionista(String dni) {
 

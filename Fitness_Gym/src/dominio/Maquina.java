@@ -4,6 +4,14 @@ import java.time.LocalDate;
 
 import enumerados.EstadoMaquina;
 
+/**
+ * Clase que representa una máquina del gimnasio dentro del sistema.
+ * Incluye lógica de dominio para la gestión de mantenimiento
+ * y control operativo del equipamiento deportivo.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class Maquina {
 	
 	private String tipo;
@@ -21,8 +29,6 @@ public class Maquina {
 		
 	}
 
-	
-	
 
 	public Maquina(String tipo, String marca, String numeroSerie, Sala sala) {
 	
@@ -130,6 +136,16 @@ public class Maquina {
 	//Métodos de dominio
 	
 
+	/**
+	 * Determina si la máquina necesita realizar mantenimiento
+	 * en función de su antigüedad y del tiempo transcurrido
+	 * desde la última revisión.
+	 * 
+	 * Las máquinas con menos de 3 años requieren mantenimiento anual,
+	 * mientras que las más antiguas requieren revisiones cada 6 meses.
+	 * 
+	 * @return true si necesita mantenimiento, false en caso contrario
+	 */
 	public boolean necesitaMantenimiento() {
 
 	    boolean necesita;

@@ -21,10 +21,16 @@ import dominio.Sala;
  * Se utiliza la tabla actividad_programada de la base de datos.
  * 
  * @author Alia
+ * @version 1.0
  */
 
 
 public class ActividadProgramadaDAO {
+	
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
+	
 
 	private String sentencia;
 	
@@ -262,6 +268,12 @@ public class ActividadProgramadaDAO {
 		conexionBD.cerrarConexion();
 	}
 	
+	/**
+	 * Recupera todas las actividades programadas almacenadas en la base de datos,
+	 * incluyendo información de actividad, sala, fechas y entrenador asociado.
+	 * 
+	 * @return Lista completa de actividades programadas
+	 */
 	public List<ActividadProgramada> obtenerTodas() {
 
 	    List<ActividadProgramada> lista = new ArrayList<>();
@@ -299,8 +311,10 @@ public class ActividadProgramadaDAO {
 	            ap.setActividad(actividad);
 	            ap.setSala(sala);
 
-	            Entrenador entrenador = new Entrenador();
-	            entrenador.setDni(rs.getString("dni_entrenador"));
+	            EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
+	            Entrenador entrenador = entrenadorDAO.buscarPorDni(
+	                rs.getString("dni_entrenador")
+	            );
 
 	            ap.setEntrenador(entrenador);
 

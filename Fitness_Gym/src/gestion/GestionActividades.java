@@ -20,6 +20,9 @@ import enumerados.Nivel;
  * Actúa como intermediaria entre la capa de presentación (GUI) y la capa de
  * persistencia (DAO), aplicando la lógica de negocio correspondiente antes de
  * delegar en la capa DAO.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 
 public class GestionActividades {
@@ -157,6 +160,15 @@ public class GestionActividades {
 	// GESTIÓN ACTIVIDADES PROGRAMADAS
 	
 	//validacion solapamiento en horario
+	/**
+	 * Comprueba si existe solapamiento horario
+	 * en una sala para una nueva actividad programada.
+	 * 
+	 * @param sala Sala a comprobar
+	 * @param inicio Fecha y hora de inicio
+	 * @param fin Fecha y hora de finalización
+	 * @return true si existe conflicto horario, false en caso contrario
+	 */
 	
 	private boolean haySolapamiento(Sala sala, LocalDateTime inicio, LocalDateTime fin) {
 
@@ -177,6 +189,15 @@ public class GestionActividades {
 	}
 	
 	//validacion entrenador
+	/**
+	 * Comprueba si un entrenador ya tiene asignada
+	 * otra actividad en el mismo intervalo horario.
+	 * 
+	 * @param entrenador Entrenador a validar
+	 * @param inicio Fecha y hora de inicio
+	 * @param fin Fecha y hora de finalización
+	 * @return true si el entrenador está ocupado, false en caso contrario
+	 */
 	private boolean entrenadorOcupado(Entrenador entrenador, LocalDateTime inicio, LocalDateTime fin) {
 
 	    boolean ocupado = false;
@@ -198,6 +219,12 @@ public class GestionActividades {
 	}
 	
 	//validacion de maquina
+	/**
+	 * Comprueba si alguna máquina de la sala se encuentra en estado de revisión.
+	 * 
+	 * @param sala Sala a comprobar
+	 * @return true si existe alguna máquina en revisión, false en caso contrario
+	 */
 	private boolean maquinasEnMalEstado(Sala sala) {
 
 	    boolean hayProblema = false;
@@ -333,7 +360,11 @@ public class GestionActividades {
 
 		return resultado;
 	}
-	
+	/**
+	 * Obtiene todas las actividades programadas registradas en el sistema.
+	 * 
+	 * @return Lista de actividades programadas disponibles
+	 */
 	public List<ActividadProgramada> obtenerActividadesProgramadas() {
 
 	    List<ActividadProgramada> lista;

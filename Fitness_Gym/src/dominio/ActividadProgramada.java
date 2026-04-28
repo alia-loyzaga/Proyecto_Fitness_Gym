@@ -4,7 +4,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Clase que representa una actividad programada del gimnasio.
+ * Clase que representa una actividad programada dentro del sistema Fitness Gym.
+ * 
+ * Relaciona una actividad concreta con una sala, un entrenador
+ * y un horario determinado, permitiendo gestionar la planificación
+ * de sesiones deportivas del gimnasio.
+ * 
+ * Incluye lógica básica para el control de plazas disponibles
+ * y organización de actividades programadas.
+ * 
+ * @author Alia
+ * @version 1.0
  */
 public class ActividadProgramada {
 	
@@ -20,24 +30,11 @@ public class ActividadProgramada {
 	// se gestionan mediante base de datos (DAO).
 	private ArrayList<Reserva> listaReservas;
 	
-	
 	//constructores
-	
-	/**Constructor vacío
-	 * 
-	 */
 	
 	public ActividadProgramada() {
 		
 	}
-	
-	/**
-	 * Constructor con parametros
-	 * @param actividad Actividad que se realiza en el gimnasio.
-	 * @param sala Sala del gimnasio.
-	 * @param fechaHoraInicio Fecha y hora de inicio de la actividad.
-	 * @param fechaHoraFin Fecha y hora de fin de la actividad.
-	 */
 	
 	public ActividadProgramada(Actividad actividad, Sala sala, LocalDateTime fechaHoraInicio,
 			LocalDateTime fechaHoraFin, Entrenador entrenador) {
@@ -116,12 +113,39 @@ public class ActividadProgramada {
     
     
     //Métodos de dominio
+    /**
+     * Calcula las plazas libres disponibles de la actividad programada.
+     * 
+     * Actualmente, en esta versión simplificada del sistema,
+     * las plazas libres se igualan al aforo máximo de la sala
+     * para facilitar la generación de datos y exportación JSON.
+     * 
+     * En futuras versiones, este cálculo deberá ajustarse
+     * restando las reservas realizadas al aforo total.
+     * 
+     * @return Número de plazas libres disponibles
+     */
+    
+    public int getPlazasLibres() {
+
+        int plazasLibres;
+
+        plazasLibres = sala.getAforoMaximo();
+
+        return plazasLibres;
+    }
+ 
+    /**
+     * Comprueba si la actividad programada dispone de plazas disponibles.
+     * 
+     * @return true si hay plazas libres, false en caso contrario
+     */
     
     public boolean hayPlazasDisponibles() {
 
         boolean hayPlazas;
 
-        if (listaReservas.size() < sala.getAforoMaximo()) {
+        if (getPlazasLibres() > 0) {
             hayPlazas = true;
         } else {
             hayPlazas = false;
@@ -130,6 +154,5 @@ public class ActividadProgramada {
         return hayPlazas;
     }
     
-//Durante la implementación se refinaron las responsabilidades del modelo de dominio para adaptarlas a una arquitectura por capas más coherente, trasladando la lógica de coordinación de reservas a la capa de gestión y simplificando la entidad ActividadProgramada para mantener únicamente comportamiento intrínseco.
 
 }

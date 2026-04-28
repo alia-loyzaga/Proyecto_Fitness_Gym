@@ -7,7 +7,13 @@ import org.junit.jupiter.api.Test;
 import dominio.Usuario;
 import gestion.ResultadoGestion;
 import gestion.UsuarioGestion;
-
+/**
+ * Clase de pruebas destinada a validar
+ * las funcionalidades principales de UsuarioGestion.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class UsuarioGestionTest {
 
     private final UsuarioGestion usuarioGestion = new UsuarioGestion();

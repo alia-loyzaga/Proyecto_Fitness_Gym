@@ -5,14 +5,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dominio.Socio;
-
+/**
+ * Clase DAO encargada de gestionar el acceso a la base de datos
+ * para los socios del sistema.
+ * 
+ * Permite realizar operaciones CRUD sobre socios:
+ * insertar, buscar, comprobar existencia, actualizar y eliminar.
+ * 
+ * @author Alia
+ * @version 1.0
+ */
 public class SocioDAO {
 
-	
+
+	/**
+     * Variable que almacena la sentencia SQL a ejecutar en cada operación.
+     */
 	String sentencia;
 	
 	
 	//insertar socio en la base de datos
+	/**
+	 * Inserta un nuevo socio en la base de datos.
+	 * 
+	 * @param socio Objeto socio a insertar.
+	 */
 	
 	public void insertarSocio(Socio socio) {
 		
@@ -63,6 +80,12 @@ public class SocioDAO {
 	}
 	
 	//buscar socio en la base de datos (select)
+	/**
+	 * Busca un socio por su DNI.
+	 * 
+	 * @param dni DNI del socio.
+	 * @return Socio encontrado o null si no existe
+	 */
 	public Socio buscarPorDni(String dni) {
 
 	    sentencia = "SELECT * FROM socio WHERE dni = ?";
@@ -102,6 +125,12 @@ public class SocioDAO {
 	}
 	
 	//Comprobar si existe un socio
+	/**
+	 * Comprueba si existe un socio con el DNI indicado.
+	 * 
+	 * @param dni DNI del socio
+	 * @return true si existe, false en caso contrario
+	 */
 	public boolean existeSocio(String dni) {
 
 	    sentencia = "SELECT dni FROM socio WHERE dni = ?";
@@ -135,6 +164,11 @@ public class SocioDAO {
 	}
 	
 	//modificar los datos del socio
+	/**
+	 * Actualiza los datos de un socio existente.
+	 * 
+	 * @param socio Socio con datos actualizados
+	 */
 	public void actualizarSocio(Socio socio) {
 		
         sentencia = "UPDATE socio SET nombre = ?, apellido1 = ?, apellido2 = ? WHERE dni = ?";
@@ -176,6 +210,11 @@ public class SocioDAO {
 	
 	
 	//eliminar socio de la base de datos
+	/**
+	 * Elimina un socio de la base de datos.
+	 * 
+	 * @param dni DNI del socio a eliminar.
+	 */
 	
 	public void eliminarSocio(String dni) {
 
