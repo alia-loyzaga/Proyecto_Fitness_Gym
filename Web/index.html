@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness Gym</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+    <img src="img/logo.png" alt="Fitness Gym Logo" class="logo">
+    <nav>
+        <a href="index.html">Actividades</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="inicio.html">Inicio</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Consulta nuestras actividades 💪</h2>
+    <p>Filtra por sala o fecha para encontrar tu entrenamiento ideal</p>
+</section>
+
+<section class="filtros">
+
+    <select id="filtroSala">
+        <option value="">Todas las salas</option>
+    </select>
+
+    <input type="date" id="filtroFecha">
+
+    <button onclick="aplicarFiltros()">Filtrar</button>
+
+</section>
+
+<section class="tarjetas">
+</section>
+<div class="paginacion">
+    <button onclick="paginaAnterior()">Anterior</button>
+    <span id="paginaActual">1</span>
+    <button onclick="paginaSiguiente()">Siguiente</button>
+</div>
+
+<section class="empresa">
+    <h2>Sobre nosotros</h2>
+    <p>Fitness Gym es un centro deportivo dedicado al entrenamiento funcional, clases dirigidas y bienestar personal.</p>
+    <p>Contamos con entrenadores profesionales y salas equipadas para ofrecer la mejor experiencia.</p>
+</section>
+
+<script defer src="js/script.js"></script>
+</body>
+</html>

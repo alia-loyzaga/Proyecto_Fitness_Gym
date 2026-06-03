@@ -1,0 +1,244 @@
+/*
+1. id (#id)          → máxima prioridad
+2. clase (.clase)    → media
+3. etiqueta (body, nav, h1…) → mínima
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f4ee;
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+
+header {
+    background-color: #f8f4ee;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid orange;
+}
+
+header h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.logo {
+    max-width: 280px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: orange;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* HERO */
+
+
+.hero {
+    background: linear-gradient(rgba(245,235,220,0.85), rgba(245,235,220,0.85)),
+                url('../img/logo.png') center/cover no-repeat;
+    text-align: center;
+    padding: 80px 20px;
+    color: #222;
+}
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #444;
+}
+/* TARJETAS */
+
+.tarjeta {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    min-height: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.tarjeta:hover {
+    transform: scale(1.05);
+}
+
+.tarjeta h3 {
+    color: orange;
+    margin-bottom: 10px;
+}
+
+.empresa {
+    padding: 30px;
+    text-align: center;
+}
+/* css contanto*/
+
+.info-contacto {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.formulario h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+input, textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+button {
+    background-color: orange;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkorange;
+}
+
+.filtros select,
+.filtros input[type="date"] {
+    padding: 12px 18px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #fafafa;
+    color: #333;
+    min-width: 220px;
+    height: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+.filtros button {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, orange, darkorange);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.filtros button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,140,0,0.4);
+}
+.paginacion {
+    text-align: center;
+    margin: 30px;
+}
+
+.paginacion button {
+    margin: 5px;
+    padding: 10px 15px;
+}
+.empresa-info,
+.servicios,
+.novedades {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.empresa-info h2,
+.servicios h2,
+.novedades h2 {
+    color: #f59e0b;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.empresa-info p,
+.novedades li,
+.servicios li {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+.servicios ul,
+.novedades ul {
+    list-style: none;
+    padding: 0;
+}
+
+.servicios li,
+.novedades li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.novedades a {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #f59e0b;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.novedades a:hover {
+    background-color: #d97706;
+}
